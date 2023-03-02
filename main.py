@@ -52,4 +52,7 @@ def main():
 
 if __name__ == '__main__':
     main()
-    print("Latest data is imported. Open Trading View and add all the latest scripts.")
+    print("******************************")
+    print("Latest Nifty50 data is imported. Open Trading View and add all the latest scripts from output.txt.")
+    print("******************************")
+
