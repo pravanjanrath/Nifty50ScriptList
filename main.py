@@ -3,9 +3,11 @@ from selenium import webdriver
 import time
 import shutil
 import os
+import glob
 
 
 SYMBOLS_FILE = "C:\\Users\\prava\\Downloads\\data.csv"
+SYMBOLS_PATH = "C:\\Users\\prava\\Downloads\\"
 NSE_NIFTY50_URL = "https://www1.nseindia.com/live_market/dynaContent/live_watch/equities_stock_watch.htm"
 
 
@@ -39,7 +41,16 @@ def write_output(symbols):
             file.write(f"{symbol},")
 
 
+def del_previous_files():
+    filepaths = glob.glob(f"{SYMBOLS_PATH}data*.csv")
+    print(filepaths)
+    for filepath in filepaths:
+        if os.path.isfile(filepath):
+            os.remove(filepath)
+
+
 def main():
+    del_previous_files()
     driver = get_driver(NSE_NIFTY50_URL)
     time.sleep(2)
     driver.find_element(by="xpath", value="/html/body/div[2]/div[3]/div[2]/div/div[1]/div[1]/div[1]/a[2]").click()
@@ -47,7 +58,6 @@ def main():
     shutil.copy(SYMBOLS_FILE, os.getcwd())
     symbols = read_data()
     write_output(symbols)
-    os.remove(SYMBOLS_FILE)
 
 
 if __name__ == '__main__':
