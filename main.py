@@ -43,7 +43,6 @@ def write_output(symbols):
 
 def del_previous_files():
     filepaths = glob.glob(f"{SYMBOLS_PATH}data*.csv")
-    print(filepaths)
     for filepath in filepaths:
         if os.path.isfile(filepath):
             os.remove(filepath)
@@ -52,9 +51,9 @@ def del_previous_files():
 def main():
     del_previous_files()
     driver = get_driver(NSE_NIFTY50_URL)
-    time.sleep(2)
+    time.sleep(1)
     driver.find_element(by="xpath", value="/html/body/div[2]/div[3]/div[2]/div/div[1]/div[1]/div[1]/a[2]").click()
-    time.sleep(2)
+    time.sleep(1)
     shutil.copy(SYMBOLS_FILE, os.getcwd())
     symbols = read_data()
     write_output(symbols)
